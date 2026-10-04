@@ -22,6 +22,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.rememberGraphicsLayer
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
@@ -38,11 +39,11 @@ class MainActivity : ComponentActivity() {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     // Id descomentando los ejercicios a medida que los vaya explicando..
                     // .. no es muy elegante pero me sirve para clase :)
-                     Ejercicio1(Modifier.padding(innerPadding))
+                    Ejercicio1(Modifier.padding(innerPadding))
                     // Ejercicio2(Modifier.padding(innerPadding))
                     // Ejercicio3(Modifier.padding(innerPadding))
                     // Ejercicio4(Modifier.padding(innerPadding))
-
+                    // EjemploSH(Modifier.padding(innerPadding))
                 }
             }
         }

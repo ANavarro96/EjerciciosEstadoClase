@@ -1,5 +1,6 @@
 package com.example.ejerciciosestadoclase
 
+import android.R
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -15,42 +16,50 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import kotlin.random.Random
 
 @Composable
-fun BloqueBoton(colorBoton: Color, texto: String, eventoPadre : () -> Unit){
+fun BloqueBoton(texto: String, eventoPadre: (Color) -> Unit){
 
-    var textoBoton by remember {
-        mutableStateOf(texto)
-    }
+    var textoAMostrar by remember { mutableStateOf(texto) }
 
+    val colorRandom = Color(
+        Random.nextInt(256),
+        Random.nextInt(256),
+        Random.nextInt(256)
+    )
     Button(onClick = {
-        // Puedo hacer otras modificaciones del estado del propio componente...
-        textoBoton = "Boton pulsado!"
 
-        // .. y como eventoPadre es una función, asi que la puedo llamar
-        eventoPadre()
+        // Podemos gestionar el estado internamente....
+        textoAMostrar = "Boton pulsado"
+
+        // Y luego lanzar los eventos proporcionados por el padre
+        eventoPadre(colorRandom)
     },
         colors = ButtonColors(
-            containerColor = colorBoton,
+            containerColor = colorRandom,
             contentColor = ButtonDefaults.buttonColors().contentColor,
             disabledContainerColor = ButtonDefaults.buttonColors().disabledContainerColor,
             disabledContentColor = ButtonDefaults.buttonColors().disabledContentColor,
         )){
-        Text(textoBoton)
+        Text(textoAMostrar)
     }
 }
 
 @Composable
-fun ColumnaBotones(miModifier: Modifier){
+fun EjemploSH(miModifier: Modifier){
 
     var colorColumna by remember { mutableStateOf(Color.White) }
 
     Column(miModifier.fillMaxSize().background(colorColumna)) {
-        BloqueBoton(Color.Red, "Boton rojo",
-            { colorColumna = Color.Red})
-        BloqueBoton(Color.Blue, "Boton azul",
-            { colorColumna = Color.Blue})
-        BloqueBoton(Color.Yellow, "Boton Amarillo",
-            { colorColumna = Color.Yellow})
+        BloqueBoton("Primer Boton", eventoPadre = {
+            colorRecibido -> colorColumna = colorRecibido
+        })
+        BloqueBoton("Segundo Boton",eventoPadre = {
+                colorRecibido -> colorColumna = colorRecibido
+        })
+        BloqueBoton( "Tercer Boton",eventoPadre = {
+                colorRecibido -> colorColumna = colorRecibido
+        })
     }
 }
